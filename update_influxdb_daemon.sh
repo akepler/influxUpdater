@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cd /srv/data/logger/updater
+cd /home/pi/influxUpdater
+
 daemon_name=update_influxdb_daemon
 if [ ! -d /tmp/updater ]
 then
@@ -13,6 +14,10 @@ fi
 
 touch /tmp/updater/$daemon_name.lock
 
+while true
+do
 /usr/bin/python $daemon_name.py | tee /dev/null
+done
+
 
 rm -f /tmp/updater/$daemon_name.lock
